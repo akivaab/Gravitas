@@ -1,6 +1,29 @@
 window.addEventListener('load', function() {
-    const canvas = this.document.getElementById('canvas1');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 500;
-    canvas.height = 500;
-})
+
+    const /** @type {HTMLCanvasElement} */ canvas = document.getElementById('canvas');
+    const /** @type {CanvasRenderingContext2D} */ context = canvas.getContext('2d');
+    const aspectRatio = 16 / 9;
+    canvas.width = 1000;
+    canvas.height = 1000 / aspectRatio;
+
+    class Game {
+        constructor(width, height) {
+
+        }
+        update() {
+
+        }
+        draw(context) {
+
+        }
+    }
+
+    const game = new Game(canvas.width, canvas.height);
+    function animate() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        game.update();
+        game.draw(context);
+    }
+    animate();
+
+});
