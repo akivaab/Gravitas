@@ -9,17 +9,18 @@ export class Player {
         this.game = game;
         this.width = 49.0625; //68.125?
         this.height = 62; //87?
-        this.x = 0;
-        this.y = this.game.height - this.height;
+        this.x = this.game.borderWidthMargin;
+        this.y = this.game.height - this.height - this.game.borderHeightMargin;
         this.image = document.getElementById('player');
         this.frameX = 0;
         this.maxFrame = 16;
         this.fps = 20;
         this.frameInterval = 1000 / this.fps;
         this.frameTimer = 0;
-        this.speed = 10;
+        this.horizontalSpeed = 10;
         this.normalGravity = true;
-        this.verticalY = 0;
+        this.verticalSpeed = 0;
+        this.verticalMaxSpeed = 25;
     }
     /**
      * @param {string[]} input 
@@ -27,24 +28,24 @@ export class Player {
      */
     update(input, deltaTime) {
         //horizontal movement
-        if (input.includes('ArrowLeft')) this.x -= this.speed;
-        else if (input.includes('ArrowRight')) this.x += this.speed;
-        if (this.x < 0) this.x = 0;
-        else if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
+        if (input.includes('ArrowLeft')) this.x -= this.horizontalSpeed;
+        else if (input.includes('ArrowRight')) this.x += this.horizontalSpeed;
+        if (this.x < this.game.borderWidthMargin) this.x = this.game.borderWidthMargin;
+        else if (this.x > this.game.width - this.width - this.game.borderWidthMargin) this.x = this.game.width - this.width - this.game.borderWidthMargin;
 
         //vertical movement
         if (input.includes(' ')) {
             this.normalGravity = false;
-            this.verticalY = -30;
+            this.verticalSpeed = -this.verticalMaxSpeed;
         }
         else {
             this.normalGravity = true;
-            this.verticalY = 30;
+            this.verticalSpeed = this.verticalMaxSpeed;
         }
-        if (this.onGround()) this.verticalY = 0;
-        this.y += this.verticalY;
-        if (this.y < 0) this.y = 0;
-        else if (this.y > this.game.height - this.height) this.y = this.game.height - this.height;
+        if (this.onGround()) this.verticalSpeed = 0;
+        this.y += this.verticalSpeed;
+        if (this.y < this.game.borderHeightMargin) this.y = this.game.borderHeightMargin;
+        else if (this.y > this.game.height - this.height - this.game.borderHeightMargin) this.y = this.game.height - this.height - this.game.borderHeightMargin;
 
         //frame change
         if (this.frameTimer > this.frameInterval) {
@@ -63,7 +64,7 @@ export class Player {
             this.x, this.y, this.width, this.height);
     }
     onGround() {
-        if (this.normalGravity) return this.y >= this.game.height - this.height;
+        if (this.normalGravity) return this.y >= this.game.height - this.height - this.game.borderHeightMargin;
         else return this.y <= 0;
     }
 }
