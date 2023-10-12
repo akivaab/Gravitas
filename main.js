@@ -5,9 +5,6 @@ window.addEventListener('load', function() {
 
     const /** @type {HTMLCanvasElement} */ canvas = document.getElementById('canvas');
     const /** @type {CanvasRenderingContext2D} */ context = canvas.getContext('2d');
-    canvas.width = 1000;
-    canvas.height = 550;
-    
 
     const game = new Game(canvas.width, canvas.height);
     let lastTime = 0;
@@ -37,6 +34,21 @@ export class Game {
      */
     draw(context) {
         context.clearRect(0, 0, this.width, this.height);
+
+        //MOVE TO NEW CLASS
+        const wallImages = document.querySelectorAll('.wall');
+        const imageWidth = 50;
+        const imageHeight = 50;
+        const columns = 1000 / imageWidth;
+        const rows = 550 / imageHeight;
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < columns; j++) {
+                const image = new Image();
+                image.src = wallImages[2].src;
+                context.drawImage(image, j * imageWidth, i * imageHeight, imageWidth, imageHeight);
+            }
+        }
+
         this.player.draw(context);
     }
 }
