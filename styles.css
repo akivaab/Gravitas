@@ -17,3 +17,11 @@
 .wall, #player {
     display: none;
 }
+
+.flare {
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(white 20%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+}
