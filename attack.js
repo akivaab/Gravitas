@@ -8,7 +8,8 @@ export class Attack {
     constructor(endpoint1, endpoint2) {
         this.endpoint1 = endpoint1;
         this.endpoint2 = endpoint2;
-        this.flares = document.querySelectorAll('.flare');
+        this.flareSize = 20;
+        this.flareColor = 'rgba(255, 90, 0, 0.7)';
         this.stageNumber = 1;
         this.stageInterval = 500;
         this.stageTimer = 0;
@@ -27,19 +28,19 @@ export class Attack {
      */
     draw(context) {
         if (this.stageNumber === 1) {
-            this.flares[0].style.left = this.endpoint1.x + 'px';
-            this.flares[0].style.top = this.endpoint1.y + 'px';
-            this.flares[0].style.opacity = 1;
-            this.flares[1].style.left = this.endpoint2.x + 'px';
-            this.flares[1].style.top = this.endpoint2.y + 'px';
-            this.flares[1].style.opacity = 1;
-            setTimeout(() => {
-                this.flares[0].style.opacity = 0;
-                this.flares[1].style.opacity = 0;
-            }, this.stageInterval)
+            [this.endpoint1, this.endpoint2].forEach(endpoint => {
+                //create a radial gradient to simulate the flare
+                const gradient = context.createRadialGradient(endpoint.x, endpoint.y, 0, endpoint.x, endpoint.y, this.flareSize);
+                gradient.addColorStop(0, 'transparent');
+                gradient.addColorStop(0.5, this.flareColor);
+                gradient.addColorStop(1, 'transparent');
+                //draw the flare
+                context.fillStyle = gradient;
+                context.fillRect(endpoint.x - this.flareSize, endpoint.y - this.flareSize, this.flareSize * 2, this.flareSize * 2);
+            })
         }
         else if (this.stageNumber === 2) {
-            context.strokeStyle = 'red';
+            context.strokeStyle = 'rgba(255, 65, 0, 1)';
             context.lineWidth = 2;
             context.beginPath();
             context.moveTo(this.endpoint1.x, this.endpoint1.y);

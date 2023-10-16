@@ -8,8 +8,6 @@ export class AttackSequence {
     constructor(endpoints, endpointDividers) {
         this.endpoints = endpoints;
         this.endpointDividers = endpointDividers;
-        console.log(this.endpoints);
-        console.log(this.endpointDividers);
         this.topEndpoints = this.endpoints.slice(0, this.endpointDividers[0]);
         this.bottomEndpoints = this.endpoints.slice(this.endpointDividers[0], this.endpointDividers[1]);
         this.leftEndpoints = this.endpoints.slice(this.endpointDividers[1], this.endpointDividers[2]);
