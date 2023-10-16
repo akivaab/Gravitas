@@ -1,9 +1,7 @@
+import { Endpoint } from "./endpoint.js";
+
 export class Attack {
     /**
-     * @typedef {Object} Endpoint
-     * @property {number} x
-     * @property {number} y
-     * 
      * @param {Endpoint} endpoint1 
      * @param {Endpoint} endpoint2
      */
@@ -11,7 +9,7 @@ export class Attack {
         this.endpoint1 = endpoint1;
         this.endpoint2 = endpoint2;
         this.flares = document.querySelectorAll('.flare');
-        this.stageNumber = 0;
+        this.stageNumber = 1;
         this.stageInterval = 500;
         this.stageTimer = 0;
     }

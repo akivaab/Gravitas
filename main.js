@@ -33,6 +33,7 @@ export class Game {
         this.inputHandler = new InputHandler();
     }
     update(deltaTime) {
+        this.stage.update(deltaTime);
         this.player.update(this.inputHandler.keys, deltaTime);
     }
     /**
