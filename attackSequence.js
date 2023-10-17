@@ -3,9 +3,11 @@ import { Attack } from "./attack.js";
 
 class AttackSequence {
     /**
-     * @param {Endpoint[]} endpoints 
+     * @param {Endpoint[]} endpoints - array of where attacks originate
+     * @param {number[]} endpointDividers - indecies in the array demarcating the borders of the stage
+     * @param {number} numAttacksAtOnce - how many attacks fire at a time
      */
-    constructor(endpoints, endpointDividers) {
+    constructor(endpoints, endpointDividers, numAttacksAtOnce) {
         this.endpoints = endpoints;
         this.endpointDividers = endpointDividers;
         this.topEndpoints = this.endpoints.slice(0, this.endpointDividers[0]);
@@ -13,12 +15,14 @@ class AttackSequence {
         this.leftEndpoints = this.endpoints.slice(this.endpointDividers[1], this.endpointDividers[2]);
         this.rightEndpoints = this.endpoints.slice(this.endpointDividers[2], this.endpointDividers[3]);
         this.currentAttack = 0;
+        this.numAttacksAtOnce = numAttacksAtOnce;
         this.completed = false;
     }
     update(deltaTime) {
-        this.attackSequence[this.currentAttack].update(deltaTime);
-        if (this.attackSequence[this.currentAttack].completed) {
-            this.currentAttack++;
+        let /** @type {Attack[]} */ currentAttacks = this.attackSequence.slice(this.currentAttack, this.currentAttack + this.numAttacksAtOnce);
+        currentAttacks.forEach(attack => attack.update(deltaTime));
+        if (currentAttacks.filter(attack => attack.completed).length === this.numAttacksAtOnce) {
+            this.currentAttack += this.numAttacksAtOnce;
             if (this.currentAttack >= this.attackSequence.length) {
                 this.completed = true;
             }
@@ -28,16 +32,38 @@ class AttackSequence {
      * @param {CanvasRenderingContext2D} context 
      */
     draw(context) {
-        this.attackSequence[this.currentAttack].draw(context);
+        let /** @type {Attack[]} */ currentAttacks = this.attackSequence.slice(this.currentAttack, this.currentAttack + this.numAttacksAtOnce);
+        currentAttacks.forEach(attack => attack.draw(context));
     }
 }
 
 export class VerticalLeftToRight extends AttackSequence {
-    constructor(endpoints, endpointDividers) {
-        super(endpoints, endpointDividers);
+    /**
+     * @param {Endpoint[]} endpoints - array of where attacks originate
+     * @param {number[]} endpointDividers - indecies in the array demarcating the borders of the stage
+     * @param {number} numAttacksAtOnce - how many attacks fire at a time
+     * @param {number} attackSpeed - how long each stage of the attack lasts in milliseconds
+     */
+    constructor(endpoints, endpointDividers, numAttacksAtOnce, attackSpeed) {
+        super(endpoints, endpointDividers, numAttacksAtOnce);
         this.attackSequence = [];
         for (let i = 1; i < this.topEndpoints.length / 2; i++) {
-            this.attackSequence.push(new Attack(this.topEndpoints[i], this.bottomEndpoints[i], 200));
+            this.attackSequence.push(new Attack(this.topEndpoints[i], this.bottomEndpoints[i], attackSpeed));
+        }
+    }
+}
+export class VerticalRightToLeft extends AttackSequence {
+    /**
+     * @param {Endpoint[]} endpoints - array of where attacks originate
+     * @param {number[]} endpointDividers - indecies in the array demarcating the borders of the stage
+     * @param {number} numAttacksAtOnce - how many attacks fire at a time
+     * @param {number} attackSpeed - how long each stage of the attack lasts in milliseconds
+     */
+    constructor(endpoints, endpointDividers, numAttacksAtOnce, attackSpeed) {
+        super(endpoints, endpointDividers, numAttacksAtOnce);
+        this.attackSequence = [];
+        for (let i = this.topEndpoints.length - 2; i >= this.topEndpoints.length / 2; i--) {
+            this.attackSequence.push(new Attack(this.topEndpoints[i], this.bottomEndpoints[i], attackSpeed));
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Game } from "./main.js";
 import { Endpoint } from "./endpoint.js";
-import { VerticalLeftToRight } from "./attackSequence.js";
+import { VerticalLeftToRight, VerticalRightToLeft } from "./attackSequence.js";
 
 export class Stage {
     /**
@@ -21,7 +21,8 @@ export class Stage {
         this.endpointDividers = [];
         this.calculateEndpoints();
         this.attackSequences = [
-            new VerticalLeftToRight(this.endpoints, this.endpointDividers),
+            new VerticalRightToLeft(this.endpoints, this.endpointDividers, 3, 300),
+            new VerticalLeftToRight(this.endpoints, this.endpointDividers, 3, 300),
         ];
         this.currentAttackSequence = 0;
         this.completed = false;

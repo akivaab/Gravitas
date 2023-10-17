@@ -2,8 +2,9 @@ import { Endpoint } from "./endpoint.js";
 
 export class Attack {
     /**
-     * @param {Endpoint} endpoint1 
+     * @param {Endpoint} endpoint1
      * @param {Endpoint} endpoint2
+     * @param {number} stageInterval - how long each stage of the attack lasts in milliseconds
      */
     constructor(endpoint1, endpoint2, stageInterval) {
         this.endpoint1 = endpoint1;
