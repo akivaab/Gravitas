@@ -5,19 +5,24 @@ export class Attack {
      * @param {Endpoint} endpoint1 
      * @param {Endpoint} endpoint2
      */
-    constructor(endpoint1, endpoint2) {
+    constructor(endpoint1, endpoint2, stageInterval) {
         this.endpoint1 = endpoint1;
         this.endpoint2 = endpoint2;
         this.flareSize = 20;
         this.flareColor = 'rgba(255, 90, 0, 0.7)';
         this.stageNumber = 1;
-        this.stageInterval = 500;
+        this.totalStages = 2;
+        this.stageInterval = stageInterval;
         this.stageTimer = 0;
+        this.completed = false;
     }
     update(deltaTime) {
         if (this.stageTimer > this.stageInterval) {
             this.stageTimer = 0;
             this.stageNumber++;
+            if (this.stageNumber > this.totalStages) {
+                this.completed = true;
+            }
         }
         else {
             this.stageTimer += deltaTime;

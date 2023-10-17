@@ -1,6 +1,6 @@
 import { Game } from "./main.js";
 import { Endpoint } from "./endpoint.js";
-import { AttackSequence } from "./attackSequence.js";
+import { VerticalLeftToRight } from "./attackSequence.js";
 
 export class Stage {
     /**
@@ -20,10 +20,20 @@ export class Stage {
         this.endpoints = [];
         this.endpointDividers = [];
         this.calculateEndpoints();
-        this.attackSequence = new AttackSequence(this.endpoints, this.endpointDividers);
+        this.attackSequences = [
+            new VerticalLeftToRight(this.endpoints, this.endpointDividers),
+        ];
+        this.currentAttackSequence = 0;
+        this.completed = false;
     }
     update(deltaTime) {
-        this.attackSequence.update(deltaTime);
+        this.attackSequences[this.currentAttackSequence].update(deltaTime);
+        if (this.attackSequences[this.currentAttackSequence].completed) {
+            this.currentAttackSequence++;
+            if (this.currentAttackSequence >= this.attackSequences.length) {
+                this.completed = true;
+            }
+        }
     }
     /**
      * @param {CanvasRenderingContext2D} context 
@@ -50,7 +60,7 @@ export class Stage {
                 context.drawImage(image, j * this.wallWidth, i * this.wallHeight, this.wallWidth, this.wallHeight);
             }
         }
-        this.attackSequence.draw(context);
+        this.attackSequences[this.currentAttackSequence].draw(context);
     }
     calculateEndpoints() {
         let divider = 0;

@@ -15,7 +15,9 @@ window.addEventListener('load', function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         game.update(deltaTime);
         game.draw(context);
-        requestAnimationFrame(animate);
+        if (!game.gameOver) {
+            requestAnimationFrame(animate);
+        }
     }
     animate(0);
 });
@@ -31,9 +33,13 @@ export class Game {
 
         this.player = new Player(this);
         this.inputHandler = new InputHandler();
+        this.gameOver = false;
     }
     update(deltaTime) {
         this.stage.update(deltaTime);
+        if (this.stage.completed) {
+            this.gameOver = true;
+        }
         this.player.update(this.inputHandler.keys, deltaTime);
     }
     /**
