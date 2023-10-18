@@ -21,8 +21,8 @@ export class Stage {
         this.endpointDividers = [];
         this.calculateEndpoints();
         this.attackSequences = [
-            new VerticalRightToLeft(this.endpoints, this.endpointDividers, 3, 300),
-            new VerticalLeftToRight(this.endpoints, this.endpointDividers, 3, 300),
+            new VerticalRightToLeft(this.game, this.endpoints, this.endpointDividers, 3, 300),
+            new VerticalLeftToRight(this.game, this.endpoints, this.endpointDividers, 3, 300),
         ];
         this.currentAttackSequence = 0;
         this.completed = false;

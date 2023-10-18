@@ -1,13 +1,16 @@
+import { Game } from "./main.js";
 import { Endpoint } from "./endpoint.js";
 import { Attack } from "./attack.js";
 
 class AttackSequence {
     /**
+     * @param {Game} game
      * @param {Endpoint[]} endpoints - array of where attacks originate
      * @param {number[]} endpointDividers - indecies in the array demarcating the borders of the stage
      * @param {number} numAttacksAtOnce - how many attacks fire at a time
      */
-    constructor(endpoints, endpointDividers, numAttacksAtOnce) {
+    constructor(game, endpoints, endpointDividers, numAttacksAtOnce) {
+        this.game = game;
         this.endpoints = endpoints;
         this.endpointDividers = endpointDividers;
         this.topEndpoints = this.endpoints.slice(0, this.endpointDividers[0]);
@@ -39,31 +42,33 @@ class AttackSequence {
 
 export class VerticalLeftToRight extends AttackSequence {
     /**
+     * @param {Game} game
      * @param {Endpoint[]} endpoints - array of where attacks originate
      * @param {number[]} endpointDividers - indecies in the array demarcating the borders of the stage
      * @param {number} numAttacksAtOnce - how many attacks fire at a time
      * @param {number} attackSpeed - how long each stage of the attack lasts in milliseconds
      */
-    constructor(endpoints, endpointDividers, numAttacksAtOnce, attackSpeed) {
-        super(endpoints, endpointDividers, numAttacksAtOnce);
+    constructor(game, endpoints, endpointDividers, numAttacksAtOnce, attackSpeed) {
+        super(game, endpoints, endpointDividers, numAttacksAtOnce);
         this.attackSequence = [];
         for (let i = 1; i < this.topEndpoints.length / 2; i++) {
-            this.attackSequence.push(new Attack(this.topEndpoints[i], this.bottomEndpoints[i], attackSpeed));
+            this.attackSequence.push(new Attack(this.game, this.topEndpoints[i], this.bottomEndpoints[i], attackSpeed));
         }
     }
 }
 export class VerticalRightToLeft extends AttackSequence {
     /**
+     * @param {Game} game
      * @param {Endpoint[]} endpoints - array of where attacks originate
      * @param {number[]} endpointDividers - indecies in the array demarcating the borders of the stage
      * @param {number} numAttacksAtOnce - how many attacks fire at a time
      * @param {number} attackSpeed - how long each stage of the attack lasts in milliseconds
      */
-    constructor(endpoints, endpointDividers, numAttacksAtOnce, attackSpeed) {
-        super(endpoints, endpointDividers, numAttacksAtOnce);
+    constructor(game, endpoints, endpointDividers, numAttacksAtOnce, attackSpeed) {
+        super(game, endpoints, endpointDividers, numAttacksAtOnce);
         this.attackSequence = [];
         for (let i = this.topEndpoints.length - 2; i >= this.topEndpoints.length / 2; i--) {
-            this.attackSequence.push(new Attack(this.topEndpoints[i], this.bottomEndpoints[i], attackSpeed));
+            this.attackSequence.push(new Attack(this.game, this.topEndpoints[i], this.bottomEndpoints[i], attackSpeed));
         }
     }
 }

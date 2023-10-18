@@ -18,15 +18,26 @@ export class Player {
         this.frameInterval = 1000 / this.fps;
         this.frameTimer = 0;
         this.horizontalSpeed = 10;
-        this.normalGravity = true;
         this.verticalSpeed = 0;
         this.verticalMaxSpeed = 25;
+        this.hitByAttack = false;
+        this.numLives = 5;
+        this.normalGravity = true;
     }
     /**
      * @param {string[]} input 
      * @param {number} deltaTime 
      */
     update(input, deltaTime) {
+        /*check collisions
+        if (this.hitByAttack) {
+            this.numLives--;
+            if (this.numLives === 0) {
+                this.game.gameOver = true;
+            }
+        }
+        */
+
         //horizontal movement
         if (input.includes('ArrowLeft')) this.x -= this.horizontalSpeed;
         else if (input.includes('ArrowRight')) this.x += this.horizontalSpeed;
@@ -62,6 +73,19 @@ export class Player {
     draw(context) {
         context.drawImage(this.image, this.frameX * this.width, 0, this.width, this.height,
             this.x, this.y, this.width, this.height);
+
+        //indicate damage taken
+        if (this.hitByAttack) {
+            const gradient = context.createRadialGradient(this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2, 
+                this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2 + 5);
+            gradient.addColorStop(0, 'rgba(0, 145, 124, 0)');
+            gradient.addColorStop(1, 'rgba(255, 0, 0, 0.7)');
+            context.fillStyle = gradient;
+            context.beginPath();
+            context.arc(this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2 + 5, 0, Math.PI * 2);
+            context.fill();
+            this.hitByAttack = false;
+        }
     }
     onGround() {
         if (this.normalGravity) return this.y >= this.game.height - this.height - this.game.borderHeightMargin;
