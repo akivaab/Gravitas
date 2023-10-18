@@ -76,14 +76,12 @@ export class Player {
 
         //indicate damage taken
         if (this.hitByAttack) {
-            const gradient = context.createRadialGradient(this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2, 
-                this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2 + 5);
-            gradient.addColorStop(0, 'rgba(0, 145, 124, 0)');
-            gradient.addColorStop(1, 'rgba(255, 0, 0, 0.7)');
-            context.fillStyle = gradient;
+            context.save();
+            context.fillStyle = 'rgba(255, 0, 0, 0.8)';
             context.beginPath();
-            context.arc(this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2 + 5, 0, Math.PI * 2);
+            context.arc(this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2, 0, Math.PI * 2);
             context.fill();
+            context.restore();
             this.hitByAttack = false;
         }
     }
