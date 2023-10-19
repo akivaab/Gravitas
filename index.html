@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gravitas</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   </head>
   <body>
-    <canvas id="canvas" width="1000" height="550"></canvas>
+    
+    <div id="game-container">
+      <canvas id="canvas" width="1000" height="550"></canvas>
+      <div id="health-bar"></div>
+      <div id="timer">3:00</div>
+    </div>
+    
     <img id="player" src="assets/player.png">
     <img id="four-light-wall" class="wall" src="assets/wall1.png">
     <img id="one-light-wall" class="wall" src="assets/wall2.png">

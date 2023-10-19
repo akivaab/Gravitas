@@ -1,19 +1,44 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-#canvas {
-    border: 5px solid black;
+#game-container {
     position: absolute;
+    width: 1000px;
+    height: 550px; 
+    margin: 0 auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#canvas {
+    position: absolute;
+    width: 1000px;
+    height: 550px;
+    border: 5px solid black;
+    top : 0;
+    left: 0;
     max-width: 100%;
     max-height: 100%;
 }
 
+#health-bar {
+    position: absolute;
+    left: -24px;
+    top: 0;
+    width: 20px;
+    height: 558px;
+    background: linear-gradient(to bottom, green, yellow, orange, red);
+    border: 1px solid black;
+}
+  
+#timer {
+    position: absolute;
+    right: -95px;
+    top: 0;
+    width: 80px;
+    height: 50px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+}
+  
 .wall, #player {
     display: none;
 }
