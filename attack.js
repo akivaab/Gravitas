@@ -3,6 +3,7 @@ import { Endpoint } from "./endpoint.js";
 
 export class Attack {
     /**
+     * @constructor
      * @param {Game} game
      * @param {Endpoint} endpoint1
      * @param {Endpoint} endpoint2
@@ -18,6 +19,7 @@ export class Attack {
         this.totalStages = 2;
         this.stageInterval = stageInterval;
         this.stageTimer = 0;
+        this.hitPlayer = false;
         this.completed = false;
     }
     update(deltaTime) {
@@ -98,8 +100,6 @@ export class Attack {
             + (this.game.player.y + this.game.player.height / 2 + 4 - closestY) ** 2);
     
         // Check if the distance is less than or equal to the circle's radius
-        if (distance <= this.game.player.width / 2) {
-            this.game.player.hitByAttack = true;
-        }
+        this.hitPlayer = distance <= this.game.player.width / 2;
     }
 }

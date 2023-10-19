@@ -21,7 +21,7 @@ export class Player {
         this.verticalSpeed = 0;
         this.verticalMaxSpeed = 25;
         this.hitByAttack = false;
-        this.numLives = 5;
+        this.health = 100;
         this.normalGravity = true;
     }
     /**
@@ -29,14 +29,13 @@ export class Player {
      * @param {number} deltaTime 
      */
     update(input, deltaTime) {
-        /*check collisions
+        //check collisions
         if (this.hitByAttack) {
-            this.numLives--;
-            if (this.numLives === 0) {
+            this.health--;
+            if (this.health <= 0) {
                 this.game.gameOver = true;
             }
         }
-        */
 
         //horizontal movement
         if (input.includes('ArrowLeft')) this.x -= this.horizontalSpeed;
@@ -82,7 +81,6 @@ export class Player {
             context.arc(this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2, 0, Math.PI * 2);
             context.fill();
             context.restore();
-            this.hitByAttack = false;
         }
     }
     onGround() {
