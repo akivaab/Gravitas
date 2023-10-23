@@ -20,19 +20,11 @@ export class Stage {
         this.endpoints = [];
         this.endpointDividers = [];
         this.calculateEndpoints();
-        this.attackSequences = [
-            new AttackSequence(this.game, this.endpoints, this.endpointDividers, [
-                ["t1", "b1"],
-                ["t2", "b2"],
-                ["t3", "b3"],
-                ["t4", "b4"],
-                ["t5", "b5"],
-                ["t6", "b6"],
-                ["t7", "b7"],
-                ["t8", "b8"],
-                ["t9", "b9"],
-            ], 3, 300)
-        ];
+        this.topEndpoints = this.endpoints.slice(0, this.endpointDividers[0]);
+        this.bottomEndpoints = this.endpoints.slice(this.endpointDividers[0], this.endpointDividers[1]);
+        this.leftEndpoints = this.endpoints.slice(this.endpointDividers[1], this.endpointDividers[2]);
+        this.rightEndpoints = this.endpoints.slice(this.endpointDividers[2], this.endpointDividers[3]);
+        this.attackSequences = this.getAttackSequences();
         this.currentAttackSequence = 0;
         this.completed = false;
     }
@@ -98,5 +90,31 @@ export class Stage {
             divider++;
         }
         this.endpointDividers.push(divider);
+    }
+    getAttackSequences() {
+        return [
+            new AttackSequence(this.game, [
+                [this.topEndpoints[18], this.bottomEndpoints[18]],
+                [this.topEndpoints[17], this.bottomEndpoints[17]],
+                [this.topEndpoints[16], this.bottomEndpoints[16]],
+                [this.topEndpoints[15], this.bottomEndpoints[15]],
+                [this.topEndpoints[14], this.bottomEndpoints[14]],
+                [this.topEndpoints[13], this.bottomEndpoints[13]],
+                [this.topEndpoints[12], this.bottomEndpoints[12]],
+                [this.topEndpoints[11], this.bottomEndpoints[11]],
+                [this.topEndpoints[10], this.bottomEndpoints[10]],
+            ], 3, 500),
+            new AttackSequence(this.game, [
+                [this.topEndpoints[1], this.bottomEndpoints[1]],
+                [this.topEndpoints[2], this.bottomEndpoints[2]],
+                [this.topEndpoints[3], this.bottomEndpoints[3]],
+                [this.topEndpoints[4], this.bottomEndpoints[4]],
+                [this.topEndpoints[5], this.bottomEndpoints[5]],
+                [this.topEndpoints[6], this.bottomEndpoints[6]],
+                [this.topEndpoints[7], this.bottomEndpoints[7]],
+                [this.topEndpoints[8], this.bottomEndpoints[8]],
+                [this.topEndpoints[9], this.bottomEndpoints[9]],
+            ], 3, 500),
+        ];
     }
 }
