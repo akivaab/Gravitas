@@ -1,6 +1,7 @@
 import { Player } from "./player.js";
 import { InputHandler } from "./input.js";
 import { Stage } from "./stage.js";
+import { UI } from "./ui.js";
 
 window.addEventListener('load', function() {
 
@@ -33,14 +34,18 @@ export class Game {
 
         this.player = new Player(this);
         this.inputHandler = new InputHandler();
+        this.ui = new UI(this);
+        this.time = 0;
         this.gameOver = false;
     }
     update(deltaTime) {
+        this.time += deltaTime;
         this.stage.update(deltaTime);
         if (this.stage.completed) {
             this.gameOver = true;
         }
         this.player.update(this.inputHandler.keys, deltaTime);
+        this.ui.update();
     }
     /**
      * @param {CanvasRenderingContext2D} context 

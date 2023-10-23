@@ -28,6 +28,12 @@
     background: linear-gradient(to bottom, green, yellow, orange, red);
     border: 1px solid black;
 }
+
+#health-bar-depleter {
+    position: relative;
+    height: 0%;
+    background: white;
+}
   
 #timer {
     position: absolute;
