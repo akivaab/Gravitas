@@ -12,17 +12,22 @@ export class Player {
         this.x = this.game.borderWidthMargin;
         this.y = this.game.height - this.height - this.game.borderHeightMargin;
         this.image = document.getElementById('player');
+        
         this.frameX = 0;
         this.maxFrame = 16;
         this.fps = 20;
         this.frameInterval = 1000 / this.fps;
         this.frameTimer = 0;
+        
         this.horizontalSpeed = 10;
         this.verticalSpeed = 0;
         this.verticalMaxSpeed = 25;
+        
         this.hitByAttack = false;
         this.health = 100;
+        
         this.normalGravity = true;
+        this.facingLeft = true;
     }
     /**
      * @param {string[]} input 
@@ -38,8 +43,14 @@ export class Player {
         }
 
         //horizontal movement
-        if (input.includes('ArrowLeft')) this.x -= this.horizontalSpeed;
-        else if (input.includes('ArrowRight')) this.x += this.horizontalSpeed;
+        if (input.includes('ArrowLeft')) {
+            this.facingLeft = true;
+            this.x -= this.horizontalSpeed;
+        }
+        else if (input.includes('ArrowRight')) {
+            this.facingLeft = false;
+            this.x += this.horizontalSpeed;
+        }
         if (this.x < this.game.borderWidthMargin) this.x = this.game.borderWidthMargin;
         else if (this.x > this.game.width - this.width - this.game.borderWidthMargin) this.x = this.game.width - this.width - this.game.borderWidthMargin;
 
@@ -70,15 +81,20 @@ export class Player {
      * @param {CanvasRenderingContext2D} context 
      */
     draw(context) {
+        context.save();
+        context.scale(this.facingLeft ? 1 : -1, this.normalGravity ? 1 : -1);
         context.drawImage(this.image, this.frameX * this.width, 0, this.width, this.height,
-            this.x, this.y, this.width, this.height);
+            this.facingLeft ? this.x : -this.x - this.width,
+            this.normalGravity ? this.y : -this.y - this.height, 
+            this.width, this.height);
+        context.restore();
 
         //indicate damage taken
         if (this.hitByAttack) {
             context.save();
             context.fillStyle = 'rgba(255, 0, 0, 0.8)';
             context.beginPath();
-            context.arc(this.x + this.width / 2, this.y + this.height / 2 + 4, this.width / 2, 0, Math.PI * 2);
+            context.arc(this.x + this.width / 2, this.y + this.height / 2 + (this.normalGravity? 4 : -4), this.width / 2, 0, Math.PI * 2);
             context.fill();
             context.restore();
         }

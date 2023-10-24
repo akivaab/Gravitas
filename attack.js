@@ -103,7 +103,7 @@ export class Attack {
     
         // Calculate the distance from the circle's center to the closest point on the line
         const distance = Math.sqrt((this.game.player.x + this.game.player.width / 2 - closestX) ** 2 
-            + (this.game.player.y + this.game.player.height / 2 + 4 - closestY) ** 2);
+            + (this.game.player.y + this.game.player.height / 2 + (this.game.player.normalGravity? 4 : -4) - closestY) ** 2);
     
         // Check if the distance is less than or equal to the circle's radius
         this.hitPlayer = distance <= this.game.player.width / 2;
