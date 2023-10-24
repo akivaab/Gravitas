@@ -1,5 +1,6 @@
 export class Endpoint {
     /**
+     * @constructor
      * @param {number} x 
      * @param {number} y 
      */

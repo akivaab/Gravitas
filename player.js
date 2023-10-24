@@ -83,6 +83,10 @@ export class Player {
             context.restore();
         }
     }
+    /**
+     * check if the player is on the ground
+     * @returns {boolean} 
+     */
     onGround() {
         if (this.normalGravity) return this.y >= this.game.height - this.height - this.game.borderHeightMargin;
         else return this.y <= 0;

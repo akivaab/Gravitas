@@ -22,6 +22,9 @@ export class Attack {
         this.hitPlayer = false;
         this.completed = false;
     }
+    /**
+     * @param {number} deltaTime 
+     */
     update(deltaTime) {
         if (this.stageNumber >= this.totalStages) this.checkHitPlayer();
         if (this.stageTimer > this.stageInterval) {
@@ -60,6 +63,9 @@ export class Attack {
             context.stroke();
         }
     }
+    /**
+     * check if the attack hit the player
+     */
     checkHitPlayer() {
         // Calculate the direction vector of the line
         const dx = this.endpoint2.x - this.endpoint1.x;

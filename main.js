@@ -24,6 +24,11 @@ window.addEventListener('load', function() {
 });
 
 export class Game {
+    /**
+     * @constructor
+     * @param {number} width 
+     * @param {number} height 
+     */
     constructor(width, height) {
         this.width = width;
         this.height = height;
@@ -38,6 +43,9 @@ export class Game {
         this.time = 0;
         this.gameOver = false;
     }
+    /**
+     * @param {number} deltaTime 
+     */
     update(deltaTime) {
         this.time += deltaTime;
         this.stage.update(deltaTime);

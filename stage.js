@@ -28,6 +28,9 @@ export class Stage {
         this.currentAttackSequence = 0;
         this.completed = false;
     }
+    /**
+     * @param {number} deltaTime 
+     */
     update(deltaTime) {
         this.attackSequences[this.currentAttackSequence].update(deltaTime);
         if (this.attackSequences[this.currentAttackSequence].completed) {
@@ -64,6 +67,9 @@ export class Stage {
         }
         this.attackSequences[this.currentAttackSequence].draw(context);
     }
+    /**
+     * determine the endpoints of attacks on the borders of the stage
+     */
     calculateEndpoints() {
         let divider = 0;
         //top row
@@ -91,6 +97,10 @@ export class Stage {
         }
         this.endpointDividers.push(divider);
     }
+    /**
+     * returns a series of attack sequences
+     * @returns {AttackSequence[]}
+     */
     getAttackSequences() {
         return [
             new AttackSequence(this.game, [

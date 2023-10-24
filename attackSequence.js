@@ -5,22 +5,25 @@ export class AttackSequence {
     /**
      * @constructor
      * @param {Game} game
-     * @param {string[][]} attackList - list of pairs of endpoints
+     * @param {Endpoint[][]} attackEndpointList - list of pairs of endpoints
      * @param {number} numAttacksAtOnce - how many attacks fire at a time
      * @param {number} attackSpeed - how long each stage of the attack lasts in milliseconds
      */
-    constructor(game, attackList, numAttacksAtOnce, attackSpeed) {
+    constructor(game, attackEndpointList, numAttacksAtOnce, attackSpeed) {
         this.game = game;
-        this.attackList = attackList;
+        this.attackEnpointList = attackEndpointList;
         this.numAttacksAtOnce = numAttacksAtOnce;
         this.attackSpeed = attackSpeed;
         this.attackSequence = []; 
-        this.attackList.forEach(endpointPair => {
+        this.attackEnpointList.forEach(endpointPair => {
             this.attackSequence.push(new Attack(this.game, endpointPair[0], endpointPair[1], this.attackSpeed));
         });
         this.currentAttack = 0;
         this.completed = false;
     }
+    /**
+     * @param {number} deltaTime 
+     */
     update(deltaTime) {
         let /** @type {Attack[]} */ currentAttacks = this.attackSequence.slice(this.currentAttack, this.currentAttack + this.numAttacksAtOnce);
         let /** @type {boolean[]} */ hitPlayer = [];
