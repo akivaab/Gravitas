@@ -38,29 +38,34 @@ export class Game {
         this.borderHeightMargin = this.stage.wallHeight;
 
         this.player = new Player(this);
-        this.inputHandler = new InputHandler();
+        this.inputHandler = new InputHandler(this);
         this.ui = new UI(this);
         this.time = 0;
         this.gameOver = false;
+        this.paused = false;
     }
     /**
      * @param {number} deltaTime 
      */
     update(deltaTime) {
-        this.time += deltaTime;
-        this.stage.update(deltaTime);
-        if (this.stage.completed) {
-            this.gameOver = true;
+        if (!this.paused) {
+            this.time += deltaTime;
+            this.stage.update(deltaTime);
+            if (this.stage.completed) {
+                this.gameOver = true;
+            }
+            this.player.update(this.inputHandler.keys, deltaTime);
         }
-        this.player.update(this.inputHandler.keys, deltaTime);
-        this.ui.update();
     }
     /**
      * @param {CanvasRenderingContext2D} context 
      */
     draw(context) {
         context.clearRect(0, 0, this.width, this.height);
-        this.stage.draw(context);
-        this.player.draw(context);
+        if (!this.paused) {
+            this.stage.draw(context);
+            this.player.draw(context);
+        }
+        this.ui.draw(context);
     }
 }
