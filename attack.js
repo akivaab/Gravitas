@@ -14,7 +14,7 @@ export class Attack {
         this.endpoint1 = endpoint1;
         this.endpoint2 = endpoint2;
         this.flareSize = 20;
-        this.flareColor = 'rgba(255, 90, 0, 0.7)';
+        this.flareColor = 'rgba(255, 60, 0, 0.8)';
         this.stageNumber = 1;
         this.totalStages = 2;
         this.stageInterval = stageInterval;

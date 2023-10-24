@@ -11,11 +11,11 @@ export class AttackSequence {
      */
     constructor(game, attackEndpointList, numAttacksAtOnce, attackSpeed) {
         this.game = game;
-        this.attackEnpointList = attackEndpointList;
+        this.attackEndpointList = attackEndpointList;
         this.numAttacksAtOnce = numAttacksAtOnce;
         this.attackSpeed = attackSpeed;
         this.attackSequence = []; 
-        this.attackEnpointList.forEach(endpointPair => {
+        this.attackEndpointList.forEach(endpointPair => {
             this.attackSequence.push(new Attack(this.game, endpointPair[0], endpointPair[1], this.attackSpeed));
         });
         this.currentAttack = 0;
