@@ -19,7 +19,7 @@
     max-height: 100%;
 }
 
-#start-screen, #pause-screen {
+#start-screen, #pause-screen, #end-screen {
     position: absolute;
     top: 5px;
     left: 5px;
@@ -41,13 +41,18 @@
     background-color: rgba(0, 0, 0, 0.98);
 }
 
-#start-screen h1, #pause-screen h1 {
+#end-screen {
+    display: none;
+    background-color: rgba(0, 200, 0, 0.8);
+}
+
+#start-screen h1, #pause-screen h1, #end-screen h1 {
     font-size: 66px;
     color: white;
 }
 
-#start-screen p, #pause-screen p {
-    font-size: 18px;
+#start-screen p, #pause-screen p, #end-screen p {
+    font-size: 20px;
     color: white;
 }
 

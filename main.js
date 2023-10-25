@@ -15,9 +15,14 @@ window.addEventListener('load', function() {
         lastTime = timeStamp;
         context.clearRect(0, 0, canvas.width, canvas.height);
         game.update(deltaTime);
-        game.draw(context);
         if (!game.gameOver) {
+            game.draw(context);
             requestAnimationFrame(animate);
+        }
+        else {
+            const endScreen = document.getElementById('end-screen');
+            endScreen.style.display = 'flex';
+            document.getElementById('total-game-time').innerHTML += ' ' + game.ui.timer.innerHTML;
         }
     }
     animate(0);
