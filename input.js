@@ -23,8 +23,14 @@ export class InputHandler {
                 this.keys.splice(this.keys.indexOf(e.key), 1);
             }
             if (e.key === 'n' || e.key === 'p') {
-                this.game.paused = !this.game.paused;
+                if (!this.game.start && !this.game.gameOver) this.game.paused = !this.game.paused;
+                const pauseButton = document.getElementById('pause-screen');
+                pauseButton.style.display = this.game.paused ? 'flex' : 'none';
             }
+        });
+        document.getElementById('play-button').addEventListener('click', e => {
+            document.getElementById('start-screen').style.display = 'none';
+            this.game.start = false;
         });
     }
 }

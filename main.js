@@ -41,14 +41,16 @@ export class Game {
         this.inputHandler = new InputHandler(this);
         this.ui = new UI(this);
         this.time = 0;
-        this.gameOver = false;
+
+        this.start = true;
         this.paused = false;
+        this.gameOver = false;
     }
     /**
      * @param {number} deltaTime 
      */
     update(deltaTime) {
-        if (!this.paused) {
+        if (!(this.paused || this.start)) {
             this.time += deltaTime;
             this.stage.update(deltaTime);
             if (this.stage.completed) {
@@ -62,10 +64,8 @@ export class Game {
      */
     draw(context) {
         context.clearRect(0, 0, this.width, this.height);
-        if (!this.paused) {
-            this.stage.draw(context);
-            this.player.draw(context);
-        }
+        this.stage.draw(context);
+        this.player.draw(context);
         this.ui.draw(context);
     }
 }
