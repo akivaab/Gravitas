@@ -7,16 +7,19 @@ export class AudioPlayer {
      */
     constructor(game) {
         this.game = game;
-        this.laserWarningSound = new Audio();
-        this.laserSound = new Audio();
-        this.gravityInvertSound = new Audio();
+        this.sfxVolume = 1.0;
+        this.laserWarningSound = new Audio('assets/laserWarning.mp3');
+        this.laserSound = new Audio('assets/laser.ogg');
+        this.gravityInvertSound = new Audio('assets/gravityInvertOn.ogg');
     }
     playLaserWarning() {
         this.laserWarningSound = new Audio('assets/laserWarning.mp3');
+        this.laserWarningSound.volume = this.sfxVolume;
         this.laserWarningSound.play();
     }
     playLaser() {
         this.laserSound = new Audio('assets/laser.ogg');
+        this.laserSound.volume = this.sfxVolume;
         this.laserSound.play();
     }
     /**
@@ -25,6 +28,7 @@ export class AudioPlayer {
     playGravityInvert(on) {
         this.gravityInvertSound.pause();
         this.gravityInvertSound = new Audio('assets/gravityInvert' + (on ? 'On' : 'Off') + '.ogg');
+        this.gravityInvertSound.volume = this.sfxVolume;
         this.gravityInvertSound.play();
     }
 }

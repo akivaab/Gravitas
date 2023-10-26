@@ -15,7 +15,7 @@ export class InputHandler {
                 ) && !this.keys.includes(e.key)) {
                 this.keys.push(e.key);
             }
-            if (e.key === ' ') this.game.audioPlayer.playGravityInvert(true);
+            if (e.key === ' ' && this.game.player.normalGravity) this.game.audioPlayer.playGravityInvert(true);
         });
         window.addEventListener('keyup', e => {
             if (    e.key === 'ArrowLeft' ||
@@ -33,6 +33,9 @@ export class InputHandler {
         document.getElementById('play-button').addEventListener('click', e => {
             document.getElementById('start-screen').style.display = 'none';
             this.game.start = false;
+        });
+        document.getElementById('sfx-volume').addEventListener('input', e => {
+            this.game.audioPlayer.sfxVolume = e.target.value / 100;
         });
     }
 }

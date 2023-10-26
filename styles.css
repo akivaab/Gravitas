@@ -56,6 +56,14 @@
     color: white;
 }
 
+#sfx-volume-container {
+    color: white;
+}
+
+#sfx-volume {
+    width: 90%
+}
+
 #play-button {
     padding: 10px 20px;
     background-color: rgba(255, 60, 0, 1);
