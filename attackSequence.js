@@ -35,6 +35,7 @@ export class AttackSequence {
         //check if sequence should move on to next set of attacks
         if (currentAttacks.filter(attack => attack.completed).length === this.numAttacksAtOnce) {
             this.currentAttack += this.numAttacksAtOnce;
+            this.game.audioPlayer.playLaserWarning(); //for next set of attacks
             if (this.currentAttack >= this.attackSequence.length) {
                 this.completed = true;
             }

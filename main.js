@@ -2,6 +2,7 @@ import { Player } from "./player.js";
 import { InputHandler } from "./input.js";
 import { Stage } from "./stage.js";
 import { UI } from "./ui.js";
+import { AudioPlayer } from "./audioPlayer.js";
 
 window.addEventListener('load', function() {
 
@@ -45,6 +46,7 @@ export class Game {
         this.player = new Player(this);
         this.inputHandler = new InputHandler(this);
         this.ui = new UI(this);
+        this.audioPlayer = new AudioPlayer(this);
         this.time = 0;
 
         this.start = true;

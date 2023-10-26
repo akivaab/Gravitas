@@ -30,6 +30,7 @@ export class Attack {
         if (this.stageTimer > this.stageInterval) {
             this.stageTimer = 0;
             this.stageNumber++;
+            if (this.stageNumber === this.totalStages) this.game.audioPlayer.playLaser();
             if (this.stageNumber > this.totalStages) {
                 this.completed = true;
             }
