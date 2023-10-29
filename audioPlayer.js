@@ -7,7 +7,7 @@ export class AudioPlayer {
      */
     constructor(game) {
         this.game = game;
-        this.sfxVolume = 1.0;
+        this.sfxVolume = document.getElementById('sfx-volume').value / 100;
         this.laserWarningSound = new Audio('assets/laserWarning.mp3');
         this.laserSound = new Audio('assets/laser.ogg');
         this.gravityInvertSound = new Audio('assets/gravityInvertOn.ogg');

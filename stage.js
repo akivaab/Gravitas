@@ -102,7 +102,7 @@ export class Stage {
      * @returns {AttackSequence[]}
      */
     getAttackSequences() {
-        const sequences = [
+        const openingSequences = [
             new AttackSequence(this.game, [
                 [this.topEndpoints[18], this.bottomEndpoints[18]],
                 [this.topEndpoints[17], this.bottomEndpoints[17]],
@@ -128,15 +128,11 @@ export class Stage {
             new AttackSequence(this.game, [
                 [this.leftEndpoints[0], this.rightEndpoints[0]],
                 [this.leftEndpoints[1], this.rightEndpoints[1]],
-            ], 1, 500),
-            new AttackSequence(this.game, [
                 [this.leftEndpoints[8], this.rightEndpoints[8]],
                 [this.leftEndpoints[7], this.rightEndpoints[7]],
-            ], 1, 500),
-            new AttackSequence(this.game, [
                 [this.leftEndpoints[0], this.rightEndpoints[0]],
                 [this.leftEndpoints[1], this.rightEndpoints[1]],
-            ], 1, 500),
+            ], 2, 500),
         ];
         const AttackSequenceData = class {
             constructor(attackEndpointList, numAttacksAtOnce, attackSpeed) {
@@ -145,7 +141,8 @@ export class Stage {
                 this.attackSpeed = attackSpeed;
             }
         }
-        const otherSequencesData = [
+        const sequencesDataPack1 = [
+            //circle (clockwise)
             new AttackSequenceData([
                 [this.topEndpoints[0], this.bottomEndpoints[19]],
                 [this.topEndpoints[1], this.bottomEndpoints[18]],
@@ -177,37 +174,159 @@ export class Stage {
                 [this.leftEndpoints[1], this.rightEndpoints[7]],
                 [this.leftEndpoints[0], this.rightEndpoints[8]],
             ], 1, 50),
+            //circle (counterclockwise)
+            new AttackSequenceData([           
+                [this.leftEndpoints[0], this.rightEndpoints[8]],
+                [this.leftEndpoints[1], this.rightEndpoints[7]],
+                [this.leftEndpoints[2], this.rightEndpoints[6]],
+                [this.leftEndpoints[3], this.rightEndpoints[5]],
+                [this.leftEndpoints[4], this.rightEndpoints[4]],
+                [this.leftEndpoints[5], this.rightEndpoints[3]],
+                [this.leftEndpoints[6], this.rightEndpoints[2]],
+                [this.leftEndpoints[7], this.rightEndpoints[1]],
+                [this.leftEndpoints[8], this.rightEndpoints[0]],
+                [this.topEndpoints[19], this.bottomEndpoints[0]],
+                [this.topEndpoints[18], this.bottomEndpoints[1]],
+                [this.topEndpoints[17], this.bottomEndpoints[2]],
+                [this.topEndpoints[16], this.bottomEndpoints[3]],
+                [this.topEndpoints[15], this.bottomEndpoints[4]],
+                [this.topEndpoints[14], this.bottomEndpoints[5]], 
+                [this.topEndpoints[13], this.bottomEndpoints[6]],
+                [this.topEndpoints[12], this.bottomEndpoints[7]],
+                [this.topEndpoints[11], this.bottomEndpoints[8]],
+                [this.topEndpoints[10], this.bottomEndpoints[9]],
+                [this.topEndpoints[9], this.bottomEndpoints[10]],
+                [this.topEndpoints[8], this.bottomEndpoints[11]],
+                [this.topEndpoints[7], this.bottomEndpoints[12]],
+                [this.topEndpoints[6], this.bottomEndpoints[13]],
+                [this.topEndpoints[5], this.bottomEndpoints[14]],
+                [this.topEndpoints[4], this.bottomEndpoints[15]],
+                [this.topEndpoints[3], this.bottomEndpoints[16]],
+                [this.topEndpoints[2], this.bottomEndpoints[17]],
+                [this.topEndpoints[1], this.bottomEndpoints[18]],
+                [this.topEndpoints[0], this.bottomEndpoints[19]],
+            ], 1, 50),
+            //force hover
             new AttackSequenceData([
                 [this.leftEndpoints[0], this.rightEndpoints[0]],
                 [this.leftEndpoints[8], this.rightEndpoints[8]],
-                [this.leftEndpoints[1], this.rightEndpoints[1]],
-                [this.leftEndpoints[7], this.rightEndpoints[7]],
             ], 2, 1000),
+            //force bottom right
             new AttackSequenceData([
                 [this.topEndpoints[1], this.bottomEndpoints[1]],
-                [this.leftEndpoints[0], this.rightEndpoints[0]],
                 [this.topEndpoints[2], this.bottomEndpoints[2]],
-                [this.leftEndpoints[1], this.rightEndpoints[1]],
                 [this.topEndpoints[3], this.bottomEndpoints[3]],
-                [this.leftEndpoints[2], this.rightEndpoints[2]],
                 [this.topEndpoints[4], this.bottomEndpoints[4]],
-                [this.leftEndpoints[3], this.rightEndpoints[3]],
                 [this.topEndpoints[5], this.bottomEndpoints[5]],
-                [this.leftEndpoints[4], this.rightEndpoints[4]],
                 [this.topEndpoints[6], this.bottomEndpoints[6]],
-                [this.leftEndpoints[5], this.rightEndpoints[5]],
                 [this.topEndpoints[7], this.bottomEndpoints[7]],
-                [this.leftEndpoints[6], this.rightEndpoints[6]],
                 [this.topEndpoints[8], this.bottomEndpoints[8]],
+                [this.topEndpoints[9], this.bottomEndpoints[9]],
+                [this.topEndpoints[10], this.bottomEndpoints[10]],
+                [this.topEndpoints[11], this.bottomEndpoints[11]],
+                [this.topEndpoints[12], this.bottomEndpoints[12]],
+                [this.leftEndpoints[0], this.rightEndpoints[0]],
+                [this.leftEndpoints[1], this.rightEndpoints[1]],
+                [this.leftEndpoints[2], this.rightEndpoints[2]],
+                [this.leftEndpoints[3], this.rightEndpoints[3]],
+                [this.leftEndpoints[4], this.rightEndpoints[4]],
+            ], 17, 1000),
+            //force bottom left
+            new AttackSequenceData([
+                [this.topEndpoints[19], this.bottomEndpoints[19]],
+                [this.topEndpoints[18], this.bottomEndpoints[18]],
+                [this.topEndpoints[17], this.bottomEndpoints[17]],
+                [this.topEndpoints[16], this.bottomEndpoints[16]],
+                [this.topEndpoints[15], this.bottomEndpoints[15]],
+                [this.topEndpoints[14], this.bottomEndpoints[14]],
+                [this.topEndpoints[13], this.bottomEndpoints[13]],
+                [this.topEndpoints[12], this.bottomEndpoints[12]],
+                [this.topEndpoints[11], this.bottomEndpoints[11]],
+                [this.topEndpoints[10], this.bottomEndpoints[10]],
+                [this.topEndpoints[9], this.bottomEndpoints[9]],
+                [this.topEndpoints[8], this.bottomEndpoints[8]],
+                [this.leftEndpoints[0], this.rightEndpoints[0]],
+                [this.leftEndpoints[1], this.rightEndpoints[1]],
+                [this.leftEndpoints[2], this.rightEndpoints[2]],
+                [this.leftEndpoints[3], this.rightEndpoints[3]],
+                [this.leftEndpoints[4], this.rightEndpoints[4]],
+            ], 17, 1000),
+            //force top right
+            new AttackSequenceData([
+                [this.topEndpoints[1], this.bottomEndpoints[1]],
+                [this.topEndpoints[2], this.bottomEndpoints[2]],
+                [this.topEndpoints[3], this.bottomEndpoints[3]],
+                [this.topEndpoints[4], this.bottomEndpoints[4]],
+                [this.topEndpoints[5], this.bottomEndpoints[5]],
+                [this.topEndpoints[6], this.bottomEndpoints[6]],
+                [this.topEndpoints[7], this.bottomEndpoints[7]],
+                [this.topEndpoints[8], this.bottomEndpoints[8]],
+                [this.topEndpoints[9], this.bottomEndpoints[9]],
+                [this.topEndpoints[10], this.bottomEndpoints[10]],
+                [this.topEndpoints[11], this.bottomEndpoints[11]],
+                [this.topEndpoints[12], this.bottomEndpoints[12]],
+                [this.leftEndpoints[8], this.rightEndpoints[8]],
                 [this.leftEndpoints[7], this.rightEndpoints[7]],
-            ], 4, 400)
+                [this.leftEndpoints[6], this.rightEndpoints[6]],
+                [this.leftEndpoints[5], this.rightEndpoints[5]],
+                [this.leftEndpoints[4], this.rightEndpoints[4]],
+            ], 17, 1000),
+            //force top left
+            new AttackSequenceData([
+                [this.topEndpoints[19], this.bottomEndpoints[19]],
+                [this.topEndpoints[18], this.bottomEndpoints[18]],
+                [this.topEndpoints[17], this.bottomEndpoints[17]],
+                [this.topEndpoints[16], this.bottomEndpoints[16]],
+                [this.topEndpoints[15], this.bottomEndpoints[15]],
+                [this.topEndpoints[14], this.bottomEndpoints[14]],
+                [this.topEndpoints[13], this.bottomEndpoints[13]],
+                [this.topEndpoints[12], this.bottomEndpoints[12]],
+                [this.topEndpoints[11], this.bottomEndpoints[11]],
+                [this.topEndpoints[10], this.bottomEndpoints[10]],
+                [this.topEndpoints[9], this.bottomEndpoints[9]],
+                [this.topEndpoints[8], this.bottomEndpoints[8]],
+                [this.leftEndpoints[8], this.rightEndpoints[8]],
+                [this.leftEndpoints[7], this.rightEndpoints[7]],
+                [this.leftEndpoints[6], this.rightEndpoints[6]],
+                [this.leftEndpoints[5], this.rightEndpoints[5]],
+                [this.leftEndpoints[4], this.rightEndpoints[4]],
+            ], 17, 1000),
+            //vertical diagonals
+            new AttackSequenceData([
+                [this.topEndpoints[0], this.bottomEndpoints[3]],
+                [this.topEndpoints[1], this.bottomEndpoints[4]],
+                [this.topEndpoints[2], this.bottomEndpoints[5]],
+                [this.topEndpoints[6], this.bottomEndpoints[3]],
+                [this.topEndpoints[7], this.bottomEndpoints[4]],
+                [this.topEndpoints[8], this.bottomEndpoints[5]],
+                [this.topEndpoints[6], this.bottomEndpoints[9]],
+                [this.topEndpoints[7], this.bottomEndpoints[10]],
+                [this.topEndpoints[8], this.bottomEndpoints[11]],
+                [this.topEndpoints[12], this.bottomEndpoints[9]],
+                [this.topEndpoints[13], this.bottomEndpoints[10]],
+                [this.topEndpoints[14], this.bottomEndpoints[11]],
+                [this.topEndpoints[12], this.bottomEndpoints[15]],
+                [this.topEndpoints[13], this.bottomEndpoints[16]],
+                [this.topEndpoints[14], this.bottomEndpoints[17]],
+            ], 3, 250),
+            //horizontal diagonals
+            new AttackSequenceData([
+                [this.leftEndpoints[0], this.rightEndpoints[2]],
+                [this.leftEndpoints[1], this.rightEndpoints[3]],
+                [this.leftEndpoints[4], this.rightEndpoints[2]],
+                [this.leftEndpoints[5], this.rightEndpoints[3]],
+                [this.leftEndpoints[4], this.rightEndpoints[6]],
+                [this.leftEndpoints[5], this.rightEndpoints[7]],
+                [this.leftEndpoints[8], this.rightEndpoints[6]],
+                [this.bottomEndpoints[0], this.rightEndpoints[7]],
+            ], 2, 300),
         ];
         let i = 0;
-        while (i < 10) {
-            const randomSequenceData = otherSequencesData[Math.floor(Math.random() * otherSequencesData.length)];
-            sequences.push(new AttackSequence(this.game, randomSequenceData.attackEndpointList, randomSequenceData.numAttacksAtOnce, randomSequenceData.attackSpeed));
+        while (i < 30) {
+            const randomSequenceData = sequencesDataPack1[Math.floor(Math.random() * sequencesDataPack1.length)];
+            openingSequences.push(new AttackSequence(this.game, randomSequenceData.attackEndpointList, randomSequenceData.numAttacksAtOnce, randomSequenceData.attackSpeed));
             i++;
         }
-        return sequences;
+        return openingSequences;
     }
 }
